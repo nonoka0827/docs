@@ -16,8 +16,7 @@
           {
             "group": "Overview",
             "pages": [
-              "LinearOverview",
-              "todo"
+              "LinearOverview"
             ]
           }
         ]
