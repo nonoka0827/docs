@@ -1,38 +1,27 @@
 const fs = require('fs');
 const path = require('path');
 
-function walk(dir, filelist = []) {
-  fs.readdirSync(dir).forEach(file => {
-    const filepath = path.join(dir, file);
-    if (fs.statSync(filepath).isDirectory()) {
-      walk(filepath, filelist);
-    } else if (file.endsWith('.md') || file.endsWith('.mdx')) {
-      filelist.push(filepath);
+// docs.jsonを読み込む
+const docsJson = JSON.parse(fs.readFileSync('docs.json', 'utf-8'));
+
+// ルート直下の.md/.mdxファイルを取得（README.mdなど除外）
+const mdFiles = fs.readdirSync('.').filter(file =>
+  (file.endsWith('.md') || file.endsWith('.mdx')) &&
+  !['README.md'].includes(file)
+).map(file => path.basename(file, path.extname(file)));
+
+// 「Docs」タブの「Overview」グループを探してpagesを書き換え
+const tabs = docsJson.navigation.tabs;
+for (const tab of tabs) {
+  if (tab.tab === 'Docs') {
+    for (const group of tab.groups) {
+      if (group.group === 'Overview') {
+        group.pages = mdFiles;
+      }
     }
-  });
-  return filelist;
+  }
 }
 
-const files = walk('.');
-const groups = {};
-
-files.forEach(filepath => {
-  const rel = path.relative('docs', filepath).replace(/\\/g, '/');
-  const parts = rel.split('/');
-  const group = parts.length > 1 ? parts[0] : 'root';
-  const page = rel.replace(/\.(md|mdx)$/, '');
-  if (!groups[group]) groups[group] = [];
-  groups[group].push(page);
-});
-
-const navigation = {
-  groups: Object.entries(groups).map(([group, pages]) => ({
-    group,
-    pages
-  }))
-};
-
-const docsJson = JSON.parse(fs.readFileSync('docs.json', 'utf-8'));
-docsJson.navigation = navigation;
+// docs.jsonを書き出し
 fs.writeFileSync('docs.json', JSON.stringify(docsJson, null, 2));
-console.log('docs.jsonのnavigationを自動生成しました');
+console.log('docs.jsonのOverviewグループを自動更新しました');
