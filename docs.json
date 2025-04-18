@@ -16,6 +16,7 @@
           {
             "group": "共有ドキュメント",
             "pages": [
+              "essentials/LinearOverview",
               "essentials/local-test",
               "essentials/new-feature"
             ]
