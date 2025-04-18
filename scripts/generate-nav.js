@@ -13,7 +13,7 @@ function walk(dir, filelist = []) {
   return filelist;
 }
 
-const files = walk('docs');
+const files = walk('.');
 const groups = {};
 
 files.forEach(filepath => {
