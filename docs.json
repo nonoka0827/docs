@@ -17,7 +17,8 @@
             "group": "共有ドキュメント",
             "pages": [
               "essentials/local-test",
-              "essentials/new-feature"
+              "essentials/new-feature",
+              "essentials/workflow-test"
             ]
           }
         ]
