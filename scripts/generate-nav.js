@@ -92,7 +92,4 @@ try {
   fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf-8');
   console.log(`Successfully updated navigation pages in ${configPath}`);
 
-} catch (error) {
-  console.error('Error generating navigation:', error);
-  process.exit(1);
-}
+
