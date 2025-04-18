@@ -1,0 +1,26 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "node scripts/generate-nav.js",
+    "dev": "node scripts/generate-nav.js && mintlify dev",
+    "deploy": "mintlify deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonoka0827/docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nonoka0827/docs/issues"
+  },
+  "homepage": "https://github.com/nonoka0827/docs#readme",
+  "devDependencies": {
+    "mintlify": "^4.0.491"
+  }
+}
